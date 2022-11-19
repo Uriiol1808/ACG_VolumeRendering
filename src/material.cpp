@@ -102,6 +102,7 @@ VolumeMaterial::VolumeMaterial()
 	//Transfer Function
 	check_transfer_function = false;
 	transfer_function1 = Application::instance->transfer_function1;
+	//transfer_function2 = Application::instance->transfer_function2;
 	threshold = 0.2f;
 
 	//Clipping

@@ -21,7 +21,7 @@ public:
 	//Lab2
 	Texture* noise_texture;
 	Texture* transfer_function1;
-	Vector3 ambient_light;
+	Texture* transfer_function2;
 	std::vector <Light*> light_list; 
 
 
