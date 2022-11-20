@@ -44,8 +44,6 @@ public:
 
 	VolumeNode(const char* name);
 	~VolumeNode();
-	void loadVolumes(const char* name);
-
 };
 
 #endif

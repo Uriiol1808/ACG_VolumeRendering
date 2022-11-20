@@ -42,14 +42,6 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	camera->lookAt(Vector3(5.f, 5.f, 5.f), Vector3(0.f, 0.0f, 0.f), Vector3(0.f, 1.f, 0.f));
 	camera->setPerspective(45.f, window_width/(float)window_height, 0.1f, 10000.f); //set the projection, we want to be perspective
 
-	// Load volumes
-	Volume* abdomen = new Volume();
-	abdomen->loadPVM("data/volumes/CT-Abdomen.pvm");
-	Volume* teapot = new Volume();
-	teapot->loadPNG("data/volumes/teapot_16_16.png");
-	Volume* bonsai = new Volume();
-	bonsai->loadPNG("data/volumes/bonsai_16_16.png");
-
 	// Load texture
 	noise_texture = Texture::Get("data/images/blueNoise.png");
 
@@ -59,8 +51,9 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		// Volumes nodes
-		VolumeNode* cube = new VolumeNode("Volumes");
-		node_list.push_back(cube);
+		VolumeNode* volumes_nodes = new VolumeNode("Volumes");
+		node_list.push_back(volumes_nodes);
+
 	}
 	
 	//hide the cursor

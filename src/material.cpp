@@ -4,6 +4,7 @@
 #include "extra/hdre.h"
 #include "volume.h"
 
+unsigned int volume_id = 1;
 unsigned int tf_texture = 1;
 
 StandardMaterial::StandardMaterial()
@@ -189,6 +190,27 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	//Clipping
 	shader->setUniform("u_clipping_check", check_clipping);
 	shader->setUniform("u_clipping_plane", clipping_plane);
+}
+
+void VolumeMaterial::setVolume(int vol, Matrix44& model) 
+{
+	Volume* volume = new Volume();
+
+	switch (vol) {
+	case 0:
+		volume->loadPVM("data/volumes/CT-Abdomen.pvm");
+		break;
+	case 1:
+		volume->loadPNG("data/volumes/teapot_16_16.png");
+		break;
+	case 2:
+		volume->loadPNG("data/volumes/bonsai_16_16.png");
+		break;
+	case 3:
+		volume->loadPNG("data/volumes/foot_16_16.png");
+		break;
+	}
+
 }
 
 void VolumeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)

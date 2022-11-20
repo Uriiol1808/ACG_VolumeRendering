@@ -44,6 +44,10 @@ public:
 class VolumeMaterial : public StandardMaterial {
 public:
 
+	//Volumes
+	Volume* abdomen;
+	Volume* bonsai;
+
 	//Lab1
 	float step_length;
 	float brightness;
@@ -72,12 +76,12 @@ public:
 	void renderInMenu();
 	void render(Mesh* mesh, Matrix44 model, Camera* camera);
 	void setUniforms(Camera* camera, Matrix44 model);
+	void setVolume(int volume, Matrix44& model);
 };
 
 class VolumeMaterialIso : public VolumeMaterial {
 public:
 
-	Vector3 ambient;
 	Vector3 light_position;
 
 	float h;

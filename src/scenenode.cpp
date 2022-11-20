@@ -6,7 +6,7 @@
 
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
-unsigned int volumes = 0;
+unsigned int vol_id = 0;
 bool isosurface = false;
 
 SceneNode::SceneNode()
@@ -57,7 +57,10 @@ void SceneNode::renderInMenu()
 		//Volumes
 		ImGui::Text("Change volume");
 		bool changed = false;
-		changed |= ImGui::Combo("Volumes", (int*)&volumes, "ABDOMEN\0TEAPOT\0BONSAI\0");
+		changed |= ImGui::Combo("Volumes", (int*)&vol_id, "ABDOMEN\0TEAPOT\0BONSAI\0FOOT\0");
+		if (changed) {
+			((VolumeMaterial*)material)->setVolume(vol_id, model);
+		}
 
 		//Isosurfaces
 		bool iso = false;
@@ -70,9 +73,10 @@ void SceneNode::renderInMenu()
 				material = new VolumeMaterial();
 		}
 
+		material->renderInMenu();
 		ImGui::TreePop();
+
 	}
-	material->renderInMenu();
 
 	//Geometry
 	if (mesh && ImGui::TreeNode("Geometry"))
@@ -95,11 +99,10 @@ VolumeNode::VolumeNode(const char* name) {
 	mesh->createCube();
 	this->mesh = mesh;
 
-	// Volume
+	// Load volume
 	Volume* volume = new Volume();
 	volume->loadPVM("data/volumes/CT-Abdomen.pvm");
-	//volume->loadPNG("data/volumes/teapot_16_16.png");
-	//volume->loadPNG("data/volumes/bonsai_16_16.png");
+	//((VolumeMaterial*)material)->setVolume(vol_id, model);
 
 	// Scale model
 	int normalize = volume->width * volume->widthSpacing;
