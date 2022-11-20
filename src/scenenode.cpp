@@ -57,7 +57,7 @@ void SceneNode::renderInMenu()
 		//Volumes
 		ImGui::Text("Change volume");
 		bool changed = false;
-		changed |= ImGui::Combo("Volumes", (int*)&volumes, "ABDOMEN\0BONSAI\0TEAPOT");
+		changed |= ImGui::Combo("Volumes", (int*)&volumes, "ABDOMEN\0TEAPOT\0BONSAI\0");
 
 		//Isosurfaces
 		bool iso = false;

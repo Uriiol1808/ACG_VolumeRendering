@@ -21,9 +21,7 @@ public:
 	//Lab2
 	Texture* noise_texture;
 	Texture* transfer_function1;
-	Texture* transfer_function2;
-	std::vector <Light*> light_list; 
-
+	Texture* transfer_function2; 
 
 	// window
 	SDL_Window* window;

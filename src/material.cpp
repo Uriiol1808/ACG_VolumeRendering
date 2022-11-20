@@ -184,7 +184,6 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	//Transfer Function
 	shader->setUniform("u_check_transfer_function", check_transfer_function);
 	shader->setUniform("u_transfer_function_texture", transfer_function_texture, 2);
-	//shader->setUniform("u_transfer_function_texture2", transfer_function2, 3);
 	shader->setUniform("u_threshold", threshold);
 
 	//Clipping

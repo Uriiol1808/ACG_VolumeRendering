@@ -137,7 +137,7 @@ void main()
 				}
 
 				//4. Composition of final_color
-				//finalColor += stepLength * (1.0 - finalColor.a) * sampleColor;						//Final color
+				finalColor += stepLength * (1.0 - finalColor.a) * sampleColor;						//Final color
 			}
 		}
 
