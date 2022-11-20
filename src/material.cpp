@@ -4,6 +4,8 @@
 #include "extra/hdre.h"
 #include "volume.h"
 
+unsigned int tf_texture = 1;
+
 StandardMaterial::StandardMaterial()
 {
 	color = vec4(1.f, 1.f, 1.f, 1.f);
@@ -103,6 +105,7 @@ VolumeMaterial::VolumeMaterial()
 	check_transfer_function = false;
 	transfer_function1 = Application::instance->transfer_function1;
 	transfer_function2 = Application::instance->transfer_function2;
+	transfer_function_texture = transfer_function1;
 	threshold = 0.2f;
 
 	//Clipping
@@ -117,6 +120,8 @@ VolumeMaterial::~VolumeMaterial()
 
 void VolumeMaterial::renderInMenu()
 {
+	ImGui::Text("VOLUME RENDERING");
+
 	//Lab1
 	ImGui::SliderFloat("Step Length", (float*)&step_length, 0.001f, 0.2f);
 	ImGui::SliderFloat("Brightness", (float*)&brightness, 0.0f, 20.0f);
@@ -124,10 +129,6 @@ void VolumeMaterial::renderInMenu()
 	ImGui::SliderFloat("Alpha", (float*)&coloralpha, 0.0f, 0.2f);
 
 	//Lab2
-	// 
-	// Combo
-	//ImGui::Combo("Volumes", (int*)VolumeNode->volumes, "Abdomen\0Teapot", 2);
-
 	//Jittering
 	ImGui::Checkbox("Jittering 1st", &check_jittering);
 	ImGui::Checkbox("Jiterring 2nd", &check_jittering2);
@@ -135,6 +136,18 @@ void VolumeMaterial::renderInMenu()
 	//Transfer Function
 	ImGui::Checkbox("Transfer Function", &check_transfer_function);
 	if (check_transfer_function) {
+
+		//Change transfer function texture
+		bool texture = false;
+		ImGui::Text("Change Isosurface texture");
+		texture |= ImGui::Combo("Texture", (int*)&tf_texture, "TF1\0TF2\0", 2);
+		if (texture) {
+			if (tf_texture == 0)
+				transfer_function_texture = transfer_function2;
+			else
+				transfer_function_texture = transfer_function1;
+
+		}
 		ImGui::SliderFloat("Threshold", (float*)&threshold, (int)0, int(1));
 	}
 
@@ -170,8 +183,8 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 
 	//Transfer Function
 	shader->setUniform("u_check_transfer_function", check_transfer_function);
-	shader->setUniform("u_transfer_function_texture", transfer_function1, 2);
-	shader->setUniform("u_transfer_function_texture2", transfer_function2, 3);
+	shader->setUniform("u_transfer_function_texture", transfer_function_texture, 2);
+	//shader->setUniform("u_transfer_function_texture2", transfer_function2, 3);
 	shader->setUniform("u_threshold", threshold);
 
 	//Clipping
@@ -200,22 +213,6 @@ void VolumeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 		//disable shader
 		shader->disable();
 	}
-}
-
-void VolumeMaterial::setVolume(Matrix44 model)
-{
-	Volume* volume = new Volume();
-
-	volume->loadPVM("data/volumes/CT-Abdomen.pvm");
-
-	// Scale model
-	int normalize = volume->width * volume->widthSpacing;
-	model.scale(1,
-		(volume->height * volume->heightSpacing) / normalize,
-		(volume->depth * volume->depthSpacing) / normalize);
-
-	// Texture
-	texture->create3DFromVolume(volume);
 }
 
 //VolumeMaterialIsosurfaces

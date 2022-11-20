@@ -116,28 +116,28 @@ void main()
 					sampleColor = texture2D(u_transfer_function_texture, vec2(d, 0.5));
 					sampleColor.xyz *= sampleColor.w;
 				}else{
-					sampleColor = vec4(d, d, d, d);													//Color of sample position
+					sampleColor = u_color;															//Simple shading
 				}
 
 				//Phong equation
-				if (sampleColor.w == 1.0){ //not transparent
+				if (sampleColor.w == 1.0){ //Not transparent
 
 					vec3 light_localpos = (u_inv_model * vec4(u_light_position, 1.0)).xyz;
 
-					vec3 L = normalize(light_localpos - samplePos);
-					float LdotN = dot(L, gradient);
+					vec3 L = normalize(light_localpos - samplePos);									
+					float LdotN = dot(L, gradient);													//Diffuse
 
 					vec3 R = reflect(-L, gradient);
 					vec3 V = normalize(camera_localpos - samplePos);
-					float RdotV = pow(dot(R, V), 10.0);
+					float RdotV = pow(dot(R, V), 10.0);												//Specular
 
 					vec4 light_equation = vec4(sampleColor.xyz * (LdotN + RdotV), 1.0);
-					finalColor = light_equation;
+					finalColor = light_equation;												
 					break;
 				}
 
 				//4. Composition of final_color
-				finalColor += stepLength * (1.0 - finalColor.a) * sampleColor;						//Final color
+				//finalColor += stepLength * (1.0 - finalColor.a) * sampleColor;						//Final color
 			}
 		}
 

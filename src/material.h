@@ -59,6 +59,7 @@ public:
 	bool check_transfer_function;
 	Texture* transfer_function1;
 	Texture* transfer_function2;
+	Texture* transfer_function_texture;
 	float threshold;
 
 	//Clipping
@@ -71,7 +72,6 @@ public:
 	void renderInMenu();
 	void render(Mesh* mesh, Matrix44 model, Camera* camera);
 	void setUniforms(Camera* camera, Matrix44 model);
-	void setVolume(Matrix44 model);
 };
 
 class VolumeMaterialIso : public VolumeMaterial {
