@@ -47,7 +47,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	// Load transfer function
 	transfer_function1 = Texture::Get("data/TF1.png");
-	//transfer_function2 = Texture::Get("data/TF2.png");
+	transfer_function2 = Texture::Get("data/TF2.png");
 
 	{
 		// Volumes nodes

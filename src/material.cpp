@@ -102,7 +102,7 @@ VolumeMaterial::VolumeMaterial()
 	//Transfer Function
 	check_transfer_function = false;
 	transfer_function1 = Application::instance->transfer_function1;
-	//transfer_function2 = Application::instance->transfer_function2;
+	transfer_function2 = Application::instance->transfer_function2;
 	threshold = 0.2f;
 
 	//Clipping
@@ -171,6 +171,7 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	//Transfer Function
 	shader->setUniform("u_check_transfer_function", check_transfer_function);
 	shader->setUniform("u_transfer_function_texture", transfer_function1, 2);
+	shader->setUniform("u_transfer_function_texture2", transfer_function2, 3);
 	shader->setUniform("u_threshold", threshold);
 
 	//Clipping

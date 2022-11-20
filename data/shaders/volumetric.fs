@@ -23,7 +23,7 @@ uniform float stepLength;
 uniform float u_brightness;
 uniform float alpha_color;
 uniform float u_texture_width;
-uniform float u_threshold_tf;
+uniform float u_threshold;
 
 uniform bool u_jittering;
 uniform bool u_jittering2;
@@ -74,7 +74,7 @@ void main()
 			vec3 textCoords = (samplePos + 1.0) / 2.0;								//Volume sampling
 			float d = texture3D(u_texture, textCoords).x;							//Density of sample position
 			
-			if (d > u_threshold_tf){
+			if (d > u_threshold){
 
 				// 3. Obtain color from density obtained
 				vec4 sampleColor;

@@ -32,14 +32,6 @@ uniform bool u_check_transfer_function;
 
 // Phong
 uniform vec3 u_light_position;
-uniform vec3 u_light_ambient;
-uniform vec3 u_light_diffuse;
-uniform vec3 u_light_specular;
-
-uniform vec3 u_material_ambient;
-uniform vec3 u_material_diffuse;
-uniform vec3 u_material_specular;
-uniform vec3 u_material_shininess;
 
 uniform mat4 u_model;
 uniform float u_h;

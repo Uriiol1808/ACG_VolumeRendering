@@ -58,6 +58,7 @@ public:
 	//Transfer Function
 	bool check_transfer_function;
 	Texture* transfer_function1;
+	Texture* transfer_function2;
 	float threshold;
 
 	//Clipping
